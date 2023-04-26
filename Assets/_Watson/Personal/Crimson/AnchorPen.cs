@@ -18,25 +18,19 @@ namespace Watson.Anchors
 
         private void OnValidate()
         {
-            if (drawing == null)
-            {
-                drawing = GetComponent<LineRenderer>();
-            }
-            if (drawing == null)
-            {
-                drawing = gameObject.AddComponent<LineRenderer>();
-            }
+
+            if (drawing == null) drawing = GetComponent<LineRenderer>() ?? gameObject.AddComponent<LineRenderer>();
+
         }
 
         private void Update()
         {
-            if (isDrawing)
+            if (!isDrawing) return;
+
+            if (Vector3.Distance(drawing.GetPosition(drawing.positionCount - 1), transform.position) > minVertexDistance)
             {
-                if (Vector3.Distance(drawing.GetPosition(drawing.positionCount - 1), transform.position) > minVertexDistance)
-                {
-                    drawing.positionCount++;
-                    drawing.SetPosition(drawing.positionCount - 1, transform.position);
-                }
+                drawing.positionCount++;
+                drawing.SetPosition(drawing.positionCount - 1, transform.position);
             }
         }
 
