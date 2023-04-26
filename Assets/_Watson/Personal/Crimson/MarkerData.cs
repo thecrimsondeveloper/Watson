@@ -7,9 +7,14 @@ namespace Watson.Anchors
 {
 
 
+
     [CreateAssetMenu(fileName = "MarkerData", menuName = "Watson/MarkerData", order = 1)]
     public class MarkerData : ScriptableObject
     {
+        public GameObject markerPrefab;
+        public GameObject drawingPrefab;
+        public GameObject notePrefab;
+        public GameObject timeStampPrefab;
         [SerializeReference] public List<AnchorSave> anchorSaves = new List<AnchorSave>();
 
         public void SaveMarkerData(Marker marker)
@@ -35,22 +40,25 @@ namespace Watson.Anchors
 
         void SaveMarkerAsNote(Marker marker)
         {
-            TMP_Text note = marker.GetComponentInChildren<TMP_Text>();
+            Note note = marker.GetComponentInChildren<Note>();
             if (note == null) return;
             NoteData noteData = new NoteData();
             noteData.anchorGuid = marker.Anchor.Uuid;
-            noteData.text = note.text;
+            noteData.text = note.noteText;
 
             anchorSaves.Add(noteData);
         }
 
         void SaveMarkerAsTimeStamp(Marker marker)
         {
-            TMP_Text timeStamp = marker.GetComponentInChildren<TMP_Text>();
+            TimeStamp timeStamp = marker.GetComponentInChildren<TimeStamp>();
             if (timeStamp == null) return;
-            TimeStamptData timeStampData = new TimeStamptData();
+
+
+
+            TimeStampData timeStampData = new TimeStampData();
             timeStampData.anchorGuid = marker.Anchor.Uuid;
-            timeStampData.time = timeStamp.text;
+            timeStampData.time = timeStamp.time;
 
             anchorSaves.Add(timeStampData);
         }
@@ -68,9 +76,9 @@ namespace Watson.Anchors
         public string text = "";
     }
 
-    public class TimeStamptData : AnchorSave
+    public class TimeStampData : AnchorSave
     {
-        public string time = "";
+        public System.DateTime time;
     }
 
     public class DrawingData : AnchorSave

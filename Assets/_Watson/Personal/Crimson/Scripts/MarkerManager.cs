@@ -15,6 +15,7 @@ namespace Watson.Anchors
     public class MarkerManager : MonoBehaviour
     {
         public MarkerData data;
+        public SpatialAnchorLoader loader;
         [SerializeField] List<Marker> markers = new List<Marker>();
         List<Marker> timeStamps => markers.Where(m => m.Type == MarkerType.TimeStamp).ToList();
         List<Marker> notes => markers.Where(m => m.Type == MarkerType.Note).ToList();
@@ -28,6 +29,13 @@ namespace Watson.Anchors
         {
             // markers.ForEach(m => m.Save());
             markers.ForEach(m => data.SaveMarkerData(m));
+        }
+
+
+        [Button]
+        public void LoadAll()
+        {
+            loader.LoadAnchorsByUuid();
         }
     }
 }
