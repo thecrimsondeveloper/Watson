@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Linq;
 using Oculus.Interaction;
+using System.Threading.Tasks;
 
 namespace Watson.Anchors
 {
@@ -194,15 +195,23 @@ namespace Watson.Anchors
             }
 
             Debug.Log("Debug: Try Saving anchor: " + anchor.Uuid.ToString());
+            SaveAnchor(anchor);
+        }
+
+
+        async void SaveAnchor(OVRSpatialAnchor anchor, int numberOfAttempts = 0)
+        {
+            await Task.Delay(1000 * numberOfAttempts);
 
             anchor.Save((anchor, success) =>
             {
                 if (!success)
                 {
+                    if (numberOfAttempts < 5) SaveAnchor(anchor, numberOfAttempts++);
                     Debug.LogError("Debug: Failed to save anchor");
                     return;
                 }
-                else Debug.Log("Deebug: Anchor saved successfully");
+                else Debug.Log("Debug: Anchor saved successfully");
 
                 // Write uuid of saved anchor to file
                 if (!PlayerPrefs.HasKey(NumUuidsPlayerPref))
