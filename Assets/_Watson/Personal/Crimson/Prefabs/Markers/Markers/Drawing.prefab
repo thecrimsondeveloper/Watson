@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c323d99638d2448c660fa17131dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentMarker: {fileID: 0}
   drawingLine: {fileID: 8904649282938832216}
 --- !u!120 &8904649282938832216
 LineRenderer:
@@ -92,7 +93,7 @@ LineRenderer:
   - {x: 0, y: 2, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.04
     widthCurve:
       serializedVersion: 2
       m_Curve:

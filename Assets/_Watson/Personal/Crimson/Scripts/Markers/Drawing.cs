@@ -12,7 +12,7 @@ namespace Watson.Anchors
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.position, 0.1f);
+            Gizmos.DrawWireSphere(transform.position, 0.02f);
         }
 
         public IEnumerator SetupDrawing(Vector3[] points)

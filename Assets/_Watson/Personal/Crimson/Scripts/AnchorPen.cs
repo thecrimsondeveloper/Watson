@@ -23,7 +23,7 @@ namespace Watson.Anchors
             if (isDrawing)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawSphere(targetDrawPoint, 0.1f);
+                Gizmos.DrawSphere(targetDrawPoint, 0.03f);
             }
         }
 
@@ -35,7 +35,10 @@ namespace Watson.Anchors
 
         private void Update()
         {
+
             if (!isDrawing) return;
+
+            transform.rotation = Quaternion.identity;
             targetDrawPoint = Vector3.Lerp(targetDrawPoint, transform.position, Time.deltaTime * 10 * 1 / (lineSmoothing + 0.01f));
 
             if (Vector3.Distance(drawing.GetPosition(drawing.positionCount - 1), targetDrawPoint) > minVertexDistance)
@@ -67,7 +70,7 @@ namespace Watson.Anchors
         {
             isDrawing = false;
             GameObject markerObj = Instantiate(defaultMarkerPrefab, transform.position, Quaternion.identity);
-
+            transform.rotation = Quaternion.identity;
 
             List<Vector3> positionsInLocalSpace = new List<Vector3>();
             for (int i = 0; i < drawing.positionCount; i++)
