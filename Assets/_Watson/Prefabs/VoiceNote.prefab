@@ -216,7 +216,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2875277548363589140}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -601,7 +601,6 @@ GameObject:
   - component: {fileID: 5729054600563448059}
   - component: {fileID: 61651929}
   - component: {fileID: 861182676053905262}
-  - component: {fileID: 4182740642370289226}
   - component: {fileID: -8744584944548474729}
   - component: {fileID: 4434608186010772975}
   - component: {fileID: 6264486396078423789}
@@ -635,6 +634,7 @@ Transform:
   - {fileID: 1091683115807938326}
   - {fileID: 1091683117674027777}
   - {fileID: 5193052755007619517}
+  - {fileID: 4228811413179448901}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -858,7 +858,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 4182740642370289226}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnableAfterTime, Assembly-CSharp
         m_MethodName: EnableAfterTimePassed
         m_Mode: 4
@@ -897,18 +897,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: -8744584944548474729}
-        m_TargetAssemblyTypeName: ScaleInOut, Assembly-CSharp
-        m_MethodName: ScaleOutDestroy
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _whenMove:
     m_PersistentCalls:
       m_Calls: []
@@ -927,20 +915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded70afe0da369d48ade82bd3772f387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4182740642370289226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5729054600563448063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4698b8fc0a5614fac07a4f4a283ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviours:
-  - {fileID: 6264486396078423789}
 --- !u!114 &-8744584944548474729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,6 +941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 0}
+  delay: 2
 --- !u!114 &6264486396078423789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,6 +956,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMarker: {fileID: 5449208512309245107, guid: 4337df1c78e294444bed05ffbc78a76b,
     type: 3}
+  delay: 1.5
+  executeAfter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8744584944548474729}
+        m_TargetAssemblyTypeName: ScaleInOut, Assembly-CSharp
+        m_MethodName: ScaleOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5729054600804047621
 GameObject:
   m_ObjectHideFlags: 0
@@ -12519,6 +12510,96 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: 1
+--- !u!1001 &4406060775224957358
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5729054600563448062}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.00017777999
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.00017777999
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.00017777999
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0011572
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0742
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00024725
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+        type: 3}
+      propertyPath: m_Name
+      value: mic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b88fdcfa8a046d4ebd38900fcf57d34, type: 3}
+--- !u!4 &4228811413179448901 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8b88fdcfa8a046d4ebd38900fcf57d34,
+    type: 3}
+  m_PrefabInstance: {fileID: 4406060775224957358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5729054600533799330
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,14 +9,21 @@ public class ActivateVoice : MonoBehaviour
 {
     private AppDictationExperience appDictation;
     public TextMeshProUGUI text;
+    public float delay =1.5f;
     public void ActivateVoiceSDK()
     {
         appDictation = GameObject.FindAnyObjectByType<AppDictationExperience>();
         appDictation.Activate();
     }
 
+    IEnumerator GetTranslatedTextAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        text.text = GameObject.FindAnyObjectByType<LastVoiceTranslation>().lastVoiceTranslation;
+    }
+
     public void GetTranslatedText()
     {
-        text.text = GameObject.FindAnyObjectByType<LastVoiceTranslation>().lastVoiceTranslation;
+        StartCoroutine(GetTranslatedTextAfterDelay(delay));
     }
 }
