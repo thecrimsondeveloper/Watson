@@ -11,6 +11,8 @@ namespace Watson.Anchors
     public class AnchorPen : MonoBehaviour
     {
         [SerializeField] LineRenderer drawing;
+        [SerializeField] ParticleSystem drawingParticles;
+
         public LineRenderer Drawing => drawing;
         [SerializeField, Range(0.01f, 0.1f)] float minVertexDistance = 0.1f;
         [SerializeField, Range(0, 1)] float lineSmoothing = 0.1f;
@@ -56,12 +58,14 @@ namespace Watson.Anchors
             if (isDrawing)
             {
                 isDrawing = false;
+                drawingParticles.Stop();
                 SaveAndReset();
             }
             else
             {
                 targetDrawPoint = transform.position;
                 isDrawing = true;
+                drawingParticles.Play();
                 drawing.positionCount = 1;
                 drawing.SetPosition(0, targetDrawPoint);
             }

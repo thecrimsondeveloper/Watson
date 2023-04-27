@@ -7,10 +7,11 @@ using Sirenix.OdinInspector;
 public class ScaleInOut : MonoBehaviour
 {
     Vector3 startScale;
+    [SerializeField] bool isHiddenOnStart = true;
     private void Start()
     {
         startScale = transform.localScale;
-        transform.localScale = Vector3.zero;
+        if (isHiddenOnStart) transform.localScale = Vector3.zero;
     }
 
     [Button]
@@ -27,5 +28,13 @@ public class ScaleInOut : MonoBehaviour
         //kill any previous tweens
         DOTween.Kill(transform);
         transform.DOScale(startScale, 0.5f).SetEase(Ease.OutBounce);
+    }
+
+    [Button]
+    public void ScaleOutDestroy()
+    {
+        //kill any previous tweens
+        DOTween.Kill(transform);
+        transform.DOScale(0, 0.5f).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
     }
 }
