@@ -7,7 +7,7 @@ public class AnchorManagement : MonoBehaviour
 {
 
     [Button]
-    void EraseAllSpatialAnchors()
+    public void EraseAllSpatialAnchors()
     {
         //get all anchors
         var allAnchors = FindObjectsOfType<OVRSpatialAnchor>();
