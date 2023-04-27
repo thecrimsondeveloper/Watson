@@ -49,7 +49,8 @@ MonoBehaviour:
   minVertexDistance: 0.01
   lineSmoothing: 1
   targetDrawPoint: {x: 0, y: 0.99, z: 0.4235}
-  grabPoint: {fileID: 0}
+  defaultMarkerPrefab: {fileID: 5449208512309245107, guid: 4337df1c78e294444bed05ffbc78a76b,
+    type: 3}
 --- !u!120 &5434701951749296360
 LineRenderer:
   m_ObjectHideFlags: 0
