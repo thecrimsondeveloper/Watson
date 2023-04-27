@@ -23,10 +23,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Watson.Anchors;
 
 namespace Oculus.Interaction.Demo
 {
-    public class WaterSpray : MonoBehaviour, IHandGrabUseDelegate
+    public class WaterSprayTest : MonoBehaviour, IHandGrabUseDelegate
     {
         public enum NozzleMode
         {
@@ -54,8 +55,6 @@ namespace Oculus.Interaction.Demo
         private float _triggerSpeed = 3f;
         [SerializeField]
         private AnimationCurve _strengthCurve = AnimationCurve.EaseInOut(0f,0f,1f,1f);
-
-        public UnityEvent onSpray = new UnityEvent();
 
         [Header("Output")]
         [SerializeField]
@@ -155,7 +154,8 @@ namespace Oculus.Interaction.Demo
         
         private void Spray()
         {
-            onSpray.Invoke();
+            AnchorPen pen = marker.GetComponent<AnchorPen>();
+            pen.ToggleDrawing();
             StartCoroutine(StampRoutine(_sprayHits, _sprayRandomness, _spraySpreadAngle, _sprayStrength));
         }
 
