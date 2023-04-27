@@ -26,6 +26,8 @@ namespace Watson.Anchors
 
         private void Start()
         {
+            data.LoadMarkerData();
+
             LoadAll();
         }
 

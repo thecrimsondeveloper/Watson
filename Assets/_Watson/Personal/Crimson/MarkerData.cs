@@ -4,13 +4,12 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
+
 namespace Watson.Anchors
 {
 
 
-
-    [CreateAssetMenu(fileName = "MarkerData", menuName = "Watson/MarkerData", order = 1)]
-    public class MarkerData : ScriptableObject
+    public class MarkerData : MonoBehaviour
     {
         public GameObject markerPrefab;
         public GameObject drawingPrefab;
@@ -18,12 +17,41 @@ namespace Watson.Anchors
         public GameObject timeStampPrefab;
         [SerializeReference] public List<AnchorSave> anchorSaves = new List<AnchorSave>();
 
+
+
         public void SaveMarkerData(Marker marker)
         {
+
             Debug.Log("Saving marker data");
             if (marker.Type == MarkerType.Drawing) { SaveMarkerAsDrawing(marker); }
             else if (marker.Type == MarkerType.Note) { SaveMarkerAsNote(marker); }
             else if (marker.Type == MarkerType.TimeStamp) { SaveMarkerAsTimeStamp(marker); }
+
+
+
+
+            SaveMarkerData();
+        }
+
+        [Button]
+        public void SaveMarkerData()
+        {
+            MarkerDataSave save = new MarkerDataSave(anchorSaves);
+            string json = JsonUtility.ToJson(save);
+            PlayerPrefs.SetString("MarkerData", json);
+        }
+
+        [Button]
+        public void LoadMarkerData()
+        {
+            string jsonInput = PlayerPrefs.GetString("MarkerData", "");
+            Debug.Log("Loading marker data : " + jsonInput);
+            if (jsonInput == "") return;
+
+            MarkerDataSave loadedSaves = JsonUtility.FromJson<MarkerDataSave>(jsonInput);
+
+            Debug.Log("Loaded " + loadedSaves.GetCompiledAnchorSave().Count + " anchors");
+            anchorSaves = loadedSaves.GetCompiledAnchorSave();
         }
 
         void SaveMarkerAsDrawing(Marker marker)
@@ -64,9 +92,40 @@ namespace Watson.Anchors
     }
 
     [System.Serializable]
+    public class MarkerDataSave
+    {
+        public List<NoteData> noteSave = new();
+        public List<TimeStampData> timeStampSaves = new();
+        public List<DrawingData> drawingSaves = new();
+
+
+        public List<AnchorSave> GetCompiledAnchorSave()
+        {
+            List<AnchorSave> compiledSave = new List<AnchorSave>();
+            compiledSave.AddRange(noteSave);
+            compiledSave.AddRange(timeStampSaves);
+            compiledSave.AddRange(drawingSaves);
+            return compiledSave;
+        }
+
+        public MarkerDataSave() { }
+        public MarkerDataSave(List<AnchorSave> markerSave)
+        {
+            foreach (AnchorSave save in markerSave)
+            {
+                if (save is DrawingData) { drawingSaves.Add((DrawingData)save); }
+                else if (save is NoteData) { noteSave.Add((NoteData)save); }
+                else if (save is TimeStampData) { timeStampSaves.Add((TimeStampData)save); }
+            }
+        }
+    }
+
+    [System.Serializable]
     public class AnchorSave
     {
         [SerializeField] System.Guid anchorGuid = System.Guid.Empty;
+        public string guid = "";
+
         public System.Guid AnchorGuid => anchorGuid;
         public void SetGuid(System.Guid newGuid)
         {
@@ -74,7 +133,6 @@ namespace Watson.Anchors
             anchorGuid = newGuid;
             RefreshGuid();
         }
-        public string guid = "";
 
         [Button]
         public void RefreshGuid()
@@ -86,18 +144,23 @@ namespace Watson.Anchors
         {
             guid = anchorGuid.ToString();
         }
+
+
     }
 
+    [System.Serializable]
     public class NoteData : AnchorSave
     {
         public string text = "";
     }
 
+    [System.Serializable]
     public class TimeStampData : AnchorSave
     {
         public System.DateTime time;
     }
 
+    [System.Serializable]
     public class DrawingData : AnchorSave
     {
         public List<Vector3> points = new List<Vector3>();
