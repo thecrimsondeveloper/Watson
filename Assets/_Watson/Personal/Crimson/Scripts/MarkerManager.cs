@@ -11,7 +11,8 @@ namespace Watson.Anchors
     {
         Drawing,
         Note,
-        TimeStamp
+        TimeStamp,
+        Marker
     }
     public class MarkerManager : MonoBehaviour
     {
@@ -54,7 +55,9 @@ namespace Watson.Anchors
         [Button, HideInEditorMode]
         public void ClearAllAnchors()
         {
+            //clear list
             markers.ForEach(m => m.DeleteAnchor());
+            markers.Clear();
         }
     }
 }

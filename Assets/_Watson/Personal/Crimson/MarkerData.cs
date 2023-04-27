@@ -15,6 +15,7 @@ namespace Watson.Anchors
         public GameObject drawingPrefab;
         public GameObject notePrefab;
         public GameObject timeStampPrefab;
+        public GameObject positionMarkerPrefab;
         [SerializeReference] public List<AnchorSave> anchorSaves = new List<AnchorSave>();
 
 
@@ -26,6 +27,8 @@ namespace Watson.Anchors
             if (marker.Type == MarkerType.Drawing) { SaveMarkerAsDrawing(marker); }
             else if (marker.Type == MarkerType.Note) { SaveMarkerAsNote(marker); }
             else if (marker.Type == MarkerType.TimeStamp) { SaveMarkerAsTimeStamp(marker); }
+            else if (marker.Type == MarkerType.Marker) { SaveMarkerAsPositionMarker(marker); }
+
 
 
 
@@ -38,6 +41,9 @@ namespace Watson.Anchors
         {
             MarkerDataSave save = new MarkerDataSave(anchorSaves);
             string json = JsonUtility.ToJson(save);
+
+            //clear out old saves
+            PlayerPrefs.DeleteKey("MarkerData");
 
             Debug.Log("Debug Save: " + json);
             PlayerPrefs.SetString("MarkerData", json);
@@ -95,6 +101,14 @@ namespace Watson.Anchors
             anchorSaves.Add(timeStampData);
         }
 
+        void SaveMarkerAsPositionMarker(Marker marker)
+        {
+            PositionMarkerData positionMarkerData = new PositionMarkerData();
+            positionMarkerData.SetGuid(marker.Anchor.Uuid);
+
+            anchorSaves.Add(positionMarkerData);
+        }
+
     }
 
     [System.Serializable]
@@ -103,6 +117,7 @@ namespace Watson.Anchors
         public List<NoteData> noteSave = new();
         public List<TimeStampData> timeStampSaves = new();
         public List<DrawingData> drawingSaves = new();
+        public List<PositionMarkerData> positionMarkerSaves = new();
 
 
         public List<AnchorSave> GetCompiledAnchorSave()
@@ -111,6 +126,7 @@ namespace Watson.Anchors
             compiledSave.AddRange(noteSave);
             compiledSave.AddRange(timeStampSaves);
             compiledSave.AddRange(drawingSaves);
+            compiledSave.AddRange(positionMarkerSaves);
             return compiledSave;
         }
 
@@ -170,5 +186,11 @@ namespace Watson.Anchors
     public class DrawingData : AnchorSave
     {
         public List<Vector3> points = new List<Vector3>();
+    }
+
+    [System.Serializable]
+    public class PositionMarkerData : AnchorSave
+    {
+
     }
 }

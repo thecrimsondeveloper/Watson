@@ -119,6 +119,18 @@ namespace Watson.Anchors
             }
         }
 
+        void SetupAsPositionMarker()
+        {
+            type = MarkerType.Marker;
+        }
+
+        public void SetupNewPositionMarker()
+        {
+            GameObject timeStampObj = Instantiate(manager.data.positionMarkerPrefab, transform);
+            timeStampObj.transform.localPosition = Vector3.zero;
+        }
+
+
         void SetupAsTimeStamp(TimeStampData anchorSave)
         {
             type = MarkerType.TimeStamp;
@@ -126,9 +138,10 @@ namespace Watson.Anchors
         }
 
         [SerializeField, HideInEditorMode]
-        public void SetupNewTimeStamp(System.DateTime time)
+        public void SetupNewTimeStamp(System.DateTime? time = null)
         {
-            StartCoroutine(SetupNewTimeStampRoutine(time));
+            if (time.HasValue == false) time = System.DateTime.Now;
+            StartCoroutine(SetupNewTimeStampRoutine(time.Value));
         }
 
         IEnumerator SetupNewTimeStampRoutine(System.DateTime time)
