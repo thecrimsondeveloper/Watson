@@ -35,6 +35,7 @@ namespace Oculus.Interaction.Demo
         }
 
         [Header("Input")]
+        
         [SerializeField]
         private Transform _trigger;
         [SerializeField]
@@ -54,7 +55,12 @@ namespace Oculus.Interaction.Demo
         [SerializeField]
         private AnimationCurve _strengthCurve = AnimationCurve.EaseInOut(0f,0f,1f,1f);
 
+        public UnityEvent onSpray = new UnityEvent();
+
         [Header("Output")]
+        [SerializeField]
+        public GameObject marker;
+       
         [SerializeField, Tooltip("Masks the Raycast used to find objects to make wet")]
         private LayerMask _raycastLayerMask = ~0;
         [SerializeField, Tooltip("The spread angle when spraying, larger values will make a larger area wet")]
@@ -93,7 +99,11 @@ namespace Oculus.Interaction.Demo
         private float _dampedUseStrength = 0;
         private float _lastUseTime;
 
+
+
         #region input
+
+        
 
         private void SprayWater()
         {
@@ -142,8 +152,10 @@ namespace Oculus.Interaction.Demo
         #endregion
 
         #region output
+        
         private void Spray()
         {
+            onSpray.Invoke();
             StartCoroutine(StampRoutine(_sprayHits, _sprayRandomness, _spraySpreadAngle, _sprayStrength));
         }
 
