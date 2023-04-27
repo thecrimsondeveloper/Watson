@@ -24,6 +24,11 @@ namespace Watson.Anchors
         public void AddMarker(Marker newMarker) => markers.Add(newMarker);
         public void RemoveMarker(Marker oldMarker) => markers.Remove(oldMarker);
 
+        private void Start()
+        {
+            LoadAll();
+        }
+
         [Button, HideInEditorMode]
         public void SaveAll()
         {

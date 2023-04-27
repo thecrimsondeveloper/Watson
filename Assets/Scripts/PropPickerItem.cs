@@ -6,9 +6,29 @@ public class PropPickerItem : MonoBehaviour
 {
     public GameObject markerPrefab;
 
-    void RepopulateChild(){
+    void RepopulateChild()
+    {
         bool DoesTransformHaveChildren = transform.childCount > 0;
-        if (DoesTransformHaveChildren){
+
+
+
+        if (DoesTransformHaveChildren)
+        {
+            // bool areChildrenActive = transform.GetChild(0).gameObject.activeSelf;
+            // //destroy all children
+            // if (areChildrenActive)
+            // {
+
+
+            //     return;
+            // }
+            // else
+            // {
+            //     for (int i = 0; i < transform.childCount; i++)
+            //     {
+            //         Destroy(transform.GetChild(i).gameObject);
+            //     }
+            // }
             return;
         }
         GameObject marker = Instantiate(markerPrefab, transform.position, transform.rotation);

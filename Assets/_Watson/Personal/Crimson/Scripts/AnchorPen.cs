@@ -66,8 +66,10 @@ namespace Watson.Anchors
             }
         }
 
+
         public void SaveAndReset()
         {
+
             isDrawing = false;
             GameObject markerObj = Instantiate(defaultMarkerPrefab, transform.position, Quaternion.identity);
             transform.rotation = Quaternion.identity;
@@ -88,6 +90,14 @@ namespace Watson.Anchors
             }
 
             drawing.positionCount = 0;
+        }
+
+        public void SaveOnRelease()
+        {
+            if (isDrawing)
+            {
+                SaveAndReset();
+            }
         }
     }
 }
