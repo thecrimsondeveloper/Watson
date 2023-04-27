@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5434701951749296362}
   - component: {fileID: 5434701951749296363}
   - component: {fileID: 5434701951749296360}
-  - component: {fileID: 5434701951749296357}
   m_Layer: 0
   m_Name: AnchorPen
   m_TagString: Untagged
@@ -47,11 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawing: {fileID: 5434701951749296360}
-  minVertexDistance: 0.1
+  minVertexDistance: 0.01
   lineSmoothing: 1
-  targetDrawPoint: {x: 0, y: -0.118, z: 0.071}
+  targetDrawPoint: {x: 0, y: 0.99, z: 0.4235}
   grabPoint: {fileID: 0}
-  isDrawing: 0
 --- !u!120 &5434701951749296360
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -93,10 +91,11 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions: []
+  m_Positions:
+  - {x: 0, y: 0.99, z: 0.4235}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.025
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -176,15 +175,3 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &5434701951749296357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5434701951749296361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e0461a4939d3b4fbdf706bbd80108c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
