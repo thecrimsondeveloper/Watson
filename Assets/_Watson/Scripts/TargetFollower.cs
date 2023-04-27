@@ -19,7 +19,7 @@ public class TargetFollower : MonoBehaviour
     {
         if (target == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(posWithLocalOffset, 0.2f);
+        Gizmos.DrawWireSphere(posWithLocalOffset, 0.02f);
     }
 
     private void Update()

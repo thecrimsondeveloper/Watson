@@ -97,10 +97,17 @@ namespace Watson.Anchors
             SetupNewDrawing(points);
         }
 
+
+
         void SetupAsNote(NoteData anchorSave)
         {
             type = MarkerType.Note;
+            SetupNewNote(anchorSave.text);
+        }
 
+        [Button, HideInEditorMode]
+        public void SetupNewNote(string text)
+        {
             GameObject noteObj = Instantiate(manager.data.notePrefab, transform);
             noteObj.transform.localPosition = Vector3.zero;
 
@@ -108,7 +115,7 @@ namespace Watson.Anchors
             if (note)
             {
                 note.parentMarker = this;
-                note.SetText(anchorSave.text);
+                note.SetText(text);
             }
         }
 
@@ -118,8 +125,7 @@ namespace Watson.Anchors
             SetupNewTimeStamp(anchorSave.time);
         }
 
-
-
+        [SerializeField, HideInEditorMode]
         public void SetupNewTimeStamp(System.DateTime time)
         {
             StartCoroutine(SetupNewTimeStampRoutine(time));
@@ -146,6 +152,8 @@ namespace Watson.Anchors
         [Button, HideInEditorMode]
         public void SetupNewDrawing(Vector3[] points)
         {
+            if (anchor) anchor.enabled = true;
+
             foreach (var point in points)
             {
                 Debug.Log(point);
@@ -162,7 +170,6 @@ namespace Watson.Anchors
 
             GameObject drawingObj = Instantiate(manager.data.drawingPrefab, transform);
             drawingObj.transform.localPosition = Vector3.zero;
-
             Drawing drawing = drawingObj.GetComponent<Drawing>();
             if (drawing)
             {
