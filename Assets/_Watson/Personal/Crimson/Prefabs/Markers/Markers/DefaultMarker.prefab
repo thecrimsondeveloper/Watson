@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8548183557677459234}
   - component: {fileID: 6452031796396949398}
   - component: {fileID: 5589647122645084789}
-  - component: {fileID: 1675000178514819979}
   m_Layer: 0
   m_Name: DefaultMarker
   m_TagString: Untagged
@@ -62,30 +61,6 @@ MonoBehaviour:
   manager: {fileID: 0}
   anchor: {fileID: 6452031796396949398}
   type: 0
---- !u!114 &1675000178514819979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5449208512309245107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41d1cb331bd351f4d967860f51af129e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _pivot: {fileID: 0}
-  _anchorMenu: {fileID: 0}
-  _anchorName: {fileID: 0}
-  _saveIcon: {fileID: 0}
-  _labelImage: {fileID: 0}
-  _labelBaseColor: {r: 0, g: 0, b: 0, a: 0}
-  _labelHighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  _labelSelectedColor: {r: 0, g: 0, b: 0, a: 0}
-  _uiManager: {fileID: 0}
-  _renderers: []
-  _buttonList: []
 --- !u!1 &9101249226608938277
 GameObject:
   m_ObjectHideFlags: 0

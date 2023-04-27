@@ -2,27 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drawing : MonoBehaviour
+namespace Watson.Anchors
 {
-    [SerializeField] LineRenderer drawingLine;
-
-    public void SetupDrawing(Vector3[] points)
+    public class Drawing : MonoBehaviour
     {
-        drawingLine.useWorldSpace = false;
-        drawingLine.positionCount = points.Length;
-        drawingLine.SetPositions(points);
-    }
+        public Marker parentMarker;
+        [SerializeField] LineRenderer drawingLine;
 
-
-    List<Vector3> tempPoints;
-    public List<Vector3> GetDrawingData()
-    {
-        tempPoints.Clear();
-        tempPoints = new List<Vector3>();
-        for (int i = 0; i < drawingLine.positionCount; i++)
+        private void OnDrawGizmos()
         {
-            tempPoints.Add(drawingLine.GetPosition(i));
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.position, 0.1f);
         }
-        return tempPoints;
+
+        public IEnumerator SetupDrawing(Vector3[] points)
+        {
+
+            foreach (var point in points)
+            {
+                Debug.Log("Point: " + point);
+            }
+            yield return new WaitForEndOfFrame();
+            drawingLine.useWorldSpace = false;
+            Debug.Log("Drawing line: " + points.Length);
+            drawingLine.positionCount = points.Length;
+
+
+            // for (int i = 0; i < points.Length; i++)
+            // {
+            //     Vector3 inversePoint = transform.InverseTransformPoint(points[i]);
+            //     points[i] = transform.InverseTransformPoint(inversePoint);
+            // }
+
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                Debug.Log("Point " + i + ": " + points[i]);
+            }
+
+            drawingLine.SetPositions(points);
+        }
+
+
+
+
+        List<Vector3> tempPoints = new List<Vector3>();
+        public List<Vector3> GetDrawingData()
+        {
+            tempPoints.Clear();
+            tempPoints = new List<Vector3>();
+            for (int i = 0; i < drawingLine.positionCount; i++)
+            {
+                tempPoints.Add(drawingLine.GetPosition(i));
+            }
+
+            Debug.Log("Drawing data: " + tempPoints.Count);
+            return tempPoints;
+        }
     }
 }

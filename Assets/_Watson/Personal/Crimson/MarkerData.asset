@@ -20,18 +20,7 @@ MonoBehaviour:
     type: 3}
   timeStampPrefab: {fileID: 11169340430115694, guid: 615fcbc76cdc6e44f82f89fb430fef3a,
     type: 3}
-  anchorSaves:
-  - rid: 7292033188677025799
+  anchorSaves: []
   references:
     version: 2
-    RefIds:
-    - rid: 7292033188677025799
-      type: {class: DrawingData, ns: Watson.Anchors, asm: Assembly-CSharp}
-      data:
-        points:
-        - {x: 0, y: 0, z: 0}
-        - {x: 1, y: 0, z: 0}
-        - {x: 0, y: 1, z: 0}
-        - {x: 0, y: 0, z: -1}
-        - {x: 1, y: 0, z: 0}
-        - {x: 0, y: 0, z: 0}
+    RefIds: []

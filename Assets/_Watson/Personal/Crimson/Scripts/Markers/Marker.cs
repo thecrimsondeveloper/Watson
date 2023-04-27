@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Linq;
+using Oculus.Interaction;
 
 namespace Watson.Anchors
 {
 
-    [RequireComponent(typeof(OVRSpatialAnchor))]
     public class Marker : MonoBehaviour
     {
         [SerializeField] MarkerManager manager;
         [SerializeField] OVRSpatialAnchor anchor;
+        [SerializeField] PointableUnityEventWrapper pointerEventWrapper;
         public OVRSpatialAnchor Anchor => anchor;
+        public string anchorGuid = "";
         public void SetAnchor(OVRSpatialAnchor newAnchor) => anchor = newAnchor;
 
         [SerializeField] MarkerType type;
         public MarkerType Type => type;
         public void SetType(MarkerType newType) => type = newType;
 
+
+        private void OnValidate()
+        {
+            if (anchor == null) anchor = GetComponent<OVRSpatialAnchor>() ?? gameObject.AddComponent<OVRSpatialAnchor>();
+            if (manager == null) manager = FindObjectOfType<MarkerManager>();
+        }
 
         private void Start()
         {
@@ -27,9 +35,19 @@ namespace Watson.Anchors
 
             anchor = GetComponent<OVRSpatialAnchor>();
 
-            // SetupMarker();
+            StartCoroutine(LateStart());
+        }
+        IEnumerator LateStart()
+        {
+            yield return new WaitForSeconds(1f);
+            SetupMarker();
+
         }
 
+        private void Update()
+        {
+            anchorGuid = anchor.Uuid.ToString();
+        }
 
 
         public void Remove()
@@ -38,26 +56,36 @@ namespace Watson.Anchors
             Destroy(gameObject);
         }
 
-        public void Save()
-        {
-            anchor.Save();
-        }
         public void DeleteAnchor()
         {
             anchor.Erase();
+            Destroy(gameObject);
         }
 
-        [Button]
+        [Button, HideInEditorMode]
         public void SetupMarker()
         {
-            System.Guid testGuid = manager.data.anchorSaves[0].anchorGuid;
-            AnchorSave anchorSave = manager.data.anchorSaves.Find(a => a.anchorGuid == anchor.Uuid);
-            if (anchorSave == null) return;
+            AnchorSave anchorSave = null;
+            foreach (AnchorSave save in manager.data.anchorSaves)
+            {
+                Debug.Log($"Comparing Anchor: {anchor.Uuid} with " + save.guid);
+
+                if (anchor.Uuid.ToString() == save.guid)
+                {
+                    anchorSave = save;
+                    break;
+                }
+            }
+            if (anchorSave == null)
+            {
+                Debug.LogError($"No anchor save found for {anchor.Uuid}");
+                return;
+            }
+            Debug.Log($"Found anchor save for {anchor.Uuid}");
 
             if (anchorSave is DrawingData) { SetupAsDrawing((DrawingData)anchorSave); }
             else if (anchorSave is NoteData) { SetupAsNote((NoteData)anchorSave); }
             else if (anchorSave is TimeStampData) { SetupAsTimeStamp((TimeStampData)anchorSave); }
-
         }
 
         void SetupAsDrawing(DrawingData anchorSave)
@@ -77,6 +105,7 @@ namespace Watson.Anchors
             Note note = noteObj.GetComponent<Note>();
             if (note)
             {
+                note.parentMarker = this;
                 note.SetText(anchorSave.text);
             }
         }
@@ -88,7 +117,7 @@ namespace Watson.Anchors
         }
 
 
-        [Button]
+
         public void SetupNewTimeStamp(System.DateTime time)
         {
             StartCoroutine(SetupNewTimeStampRoutine(time));
@@ -106,20 +135,26 @@ namespace Watson.Anchors
             TimeStamp timeStamp = timeStampObj.GetComponent<TimeStamp>();
             if (timeStamp)
             {
+                timeStamp.parentMarker = this;
                 timeStamp.SetupTimeStamp();
             }
 
         }
 
-        [Button]
+        [Button, HideInEditorMode]
         public void SetupNewDrawing(Vector3[] points)
         {
+            foreach (var point in points)
+            {
+                Debug.Log(point);
+            }
+
             StartCoroutine(SetupNewDrawingRoutine(points));
         }
 
         IEnumerator SetupNewDrawingRoutine(Vector3[] points)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
 
             type = MarkerType.Drawing;
 
@@ -129,10 +164,54 @@ namespace Watson.Anchors
             Drawing drawing = drawingObj.GetComponent<Drawing>();
             if (drawing)
             {
-                drawing.SetupDrawing(points);
+                Debug.Log("Setting up drawing");
+                drawing.parentMarker = this;
+                yield return drawing.SetupDrawing(points);
+            }
+            else
+            {
+                Debug.LogError("No drawing component found");
             }
         }
 
 
+
+        public const string NumUuidsPlayerPref = "numUuids";
+
+
+        [Button, HideInEditorMode]
+        public void SaveAnchor()
+        {
+            if (!anchor)
+            {
+                Debug.LogError("No anchor to save");
+                return;
+            }
+            else
+            {
+                Debug.Log("Saving anchor");
+            }
+
+            anchor.Save((anchor, success) =>
+            {
+                if (!success)
+                {
+                    Debug.LogError("Failed to save anchor");
+                    return;
+                }
+                else Debug.Log("Anchor saved successfully");
+
+                // Write uuid of saved anchor to file
+                if (!PlayerPrefs.HasKey(NumUuidsPlayerPref))
+                {
+                    PlayerPrefs.SetInt(NumUuidsPlayerPref, 0);
+                }
+
+                int playerNumUuids = PlayerPrefs.GetInt(NumUuidsPlayerPref);
+                PlayerPrefs.SetString("uuid" + playerNumUuids, anchor.Uuid.ToString());
+                PlayerPrefs.SetInt(NumUuidsPlayerPref, ++playerNumUuids);
+                Debug.Log("Saving anchor: " + anchor.Uuid.ToString());
+            });
+        }
     }
 }

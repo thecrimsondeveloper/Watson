@@ -24,18 +24,23 @@ namespace Watson.Anchors
         public void AddMarker(Marker newMarker) => markers.Add(newMarker);
         public void RemoveMarker(Marker oldMarker) => markers.Remove(oldMarker);
 
-        [Button]
+        [Button, HideInEditorMode]
         public void SaveAll()
         {
-            // markers.ForEach(m => m.Save());
+            markers.ForEach(m => m.SaveAnchor());
             markers.ForEach(m => data.SaveMarkerData(m));
         }
 
-
-        [Button]
+        [Button, HideInEditorMode]
         public void LoadAll()
         {
             loader.LoadAnchorsByUuid();
+        }
+
+        [Button, HideInEditorMode]
+        public void ClearAllAnchors()
+        {
+            markers.ForEach(m => m.DeleteAnchor());
         }
     }
 }

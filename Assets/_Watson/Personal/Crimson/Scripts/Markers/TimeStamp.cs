@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class TimeStamp : MonoBehaviour
+namespace Watson.Anchors
 {
-    [SerializeField] TMP_Text text;
-
-    public System.DateTime time;
-
-    [Button]
-    public void SetTime()
+    public class TimeStamp : MonoBehaviour
     {
-        text.text = time.ToString("HH:mm:ss");
-    }
+        public Marker parentMarker;
+        [SerializeField] TMP_Text text;
 
-    public void SetupTimeStamp(System.DateTime? time = null)
-    {
-        if (time == null) time = System.DateTime.Now;
-        this.time = time.Value;
-        SetTime();
+        public System.DateTime time;
+
+        [Button]
+        public void SetTime()
+        {
+            text.text = time.ToString("HH:mm:ss");
+        }
+
+        public void SetupTimeStamp(System.DateTime? time = null)
+        {
+            if (time == null) time = System.DateTime.Now;
+            this.time = time.Value;
+            SetTime();
+        }
     }
 }

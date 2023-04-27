@@ -74,7 +74,10 @@ namespace Watson.Anchors
             List<Vector3> positionsInLocalSpace = new List<Vector3>();
             for (int i = 0; i < drawing.positionCount; i++)
             {
-                positionsInLocalSpace.Add(drawing.GetPosition(i));
+                Vector3 localPos = transform.InverseTransformPoint(drawing.GetPosition(i));
+                Debug.Log("Local pos: " + localPos);
+                positionsInLocalSpace.Add(localPos);
+                Debug.Log("Local pos: " + positionsInLocalSpace[i]);
             }
 
             Marker marker = markerObj.GetComponent<Marker>();
