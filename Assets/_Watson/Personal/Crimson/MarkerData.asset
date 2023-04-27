@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baa781cb896d25488b382341b224b59, type: 3}
   m_Name: MarkerData
   m_EditorClassIdentifier: 
+  markerPrefab: {fileID: 5449208512309245107, guid: 4337df1c78e294444bed05ffbc78a76b,
+    type: 3}
+  drawingPrefab: {fileID: 2922471077615468325, guid: 533d5780dab463a4cb453e9e0d9eb419,
+    type: 3}
+  notePrefab: {fileID: 1693605325436144488, guid: e231279601bb62344aef4eb50830d1dd,
+    type: 3}
+  timeStampPrefab: {fileID: 11169340430115694, guid: 615fcbc76cdc6e44f82f89fb430fef3a,
+    type: 3}
   anchorSaves: []
   references:
     version: 2
