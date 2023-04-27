@@ -7,10 +7,10 @@ public class BillboardBehaviour : MonoBehaviour
 
     private void OnValidate()
     {
-        transform.LookAt(Camera.main.transform);
+        if (Camera.main) transform.LookAt(Camera.main.transform);
     }
     private void Update()
     {
-        transform.LookAt(Camera.main.transform);
+        if (Camera.main) transform.LookAt(Camera.main.transform);
     }
 }

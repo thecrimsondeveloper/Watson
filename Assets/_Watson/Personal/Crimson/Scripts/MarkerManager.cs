@@ -41,6 +41,7 @@ namespace Watson.Anchors
         [Button, HideInEditorMode]
         public void LoadAll()
         {
+            Debug.Log("Debug: Loading all Anchors");
             loader.LoadAnchorsByUuid();
         }
 

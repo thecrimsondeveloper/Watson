@@ -38,6 +38,8 @@ namespace Watson.Anchors
         {
             MarkerDataSave save = new MarkerDataSave(anchorSaves);
             string json = JsonUtility.ToJson(save);
+
+            Debug.Log("Debug Save: " + json);
             PlayerPrefs.SetString("MarkerData", json);
         }
 
@@ -45,13 +47,17 @@ namespace Watson.Anchors
         public void LoadMarkerData()
         {
             string jsonInput = PlayerPrefs.GetString("MarkerData", "");
-            Debug.Log("Loading marker data : " + jsonInput);
+            Debug.Log("Debug Load" + jsonInput);
             if (jsonInput == "") return;
 
             MarkerDataSave loadedSaves = JsonUtility.FromJson<MarkerDataSave>(jsonInput);
 
             Debug.Log("Loaded " + loadedSaves.GetCompiledAnchorSave().Count + " anchors");
+
+
             anchorSaves = loadedSaves.GetCompiledAnchorSave();
+
+            Debug.Log("Debug " + anchorSaves.Count + " anchors");
         }
 
         void SaveMarkerAsDrawing(Marker marker)
