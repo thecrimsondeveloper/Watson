@@ -652,6 +652,7 @@ GameObject:
   - component: {fileID: 5729054600563448059}
   - component: {fileID: 61651929}
   - component: {fileID: 861182676053905262}
+  - component: {fileID: 4182740642370289226}
   m_Layer: 0
   m_Name: 3DPen
   m_TagString: Untagged
@@ -905,6 +906,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 4182740642370289226}
+        m_TargetAssemblyTypeName: EnableAfterTime, Assembly-CSharp
+        m_MethodName: EnableAfterTimePassed
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
       m_Calls:
@@ -950,6 +963,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded70afe0da369d48ade82bd3772f387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4182740642370289226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729054600563448063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4698b8fc0a5614fac07a4f4a283ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviours:
+  - {fileID: 1704160530978141316}
 --- !u!1 &5729054600804047621
 GameObject:
   m_ObjectHideFlags: 0
@@ -12927,6 +12954,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5434701951749296363, guid: 546e913ed6abaf441ba1f502ca51d16c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546e913ed6abaf441ba1f502ca51d16c, type: 3}
 --- !u!114 &1704160530978141316 stripped
@@ -12936,7 +12968,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6687164128182854767}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704160530978141318}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86f7375f92b9c5245add9b63b09ddcaa, type: 3}
   m_Name: 

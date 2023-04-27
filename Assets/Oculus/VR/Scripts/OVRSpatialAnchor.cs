@@ -161,6 +161,7 @@ public class OVRSpatialAnchor : MonoBehaviour
     /// </param>
     public void Save(Action<OVRSpatialAnchor, bool> onComplete = null)
     {
+
         Save(_defaultSaveOptions, onComplete);
     }
 
@@ -775,7 +776,6 @@ public class OVRSpatialAnchor : MonoBehaviour
                                 callback?.Invoke(anchor, result == OperationResult.Success);
                                 SaveRequestCallbacks.Remove(anchor);
                             }
-
                             break;
                         }
                     case MultiAnchorActionType.Share:

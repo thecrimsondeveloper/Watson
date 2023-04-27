@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Sirenix.OdinInspector;
+using System.Threading.Tasks;
 
 namespace Watson.Anchors
 {
@@ -24,9 +25,12 @@ namespace Watson.Anchors
         public void AddMarker(Marker newMarker) => markers.Add(newMarker);
         public void RemoveMarker(Marker oldMarker) => markers.Remove(oldMarker);
 
-        private void Start()
+        private async void Start()
         {
+            await Task.Delay(2000);
+            Debug.Log("Debug: Loading all Anchors");
             data.LoadMarkerData();
+            await Task.Delay(2000);
 
             LoadAll();
         }
@@ -34,6 +38,7 @@ namespace Watson.Anchors
         [Button, HideInEditorMode]
         public void SaveAll()
         {
+            Debug.Log($"Debug: {markers.Count} markers to save");
             markers.ForEach(m => m.SaveAnchor());
             markers.ForEach(m => data.SaveMarkerData(m));
         }
@@ -43,6 +48,7 @@ namespace Watson.Anchors
         {
             Debug.Log("Debug: Loading all Anchors");
             loader.LoadAnchorsByUuid();
+
         }
 
         [Button, HideInEditorMode]

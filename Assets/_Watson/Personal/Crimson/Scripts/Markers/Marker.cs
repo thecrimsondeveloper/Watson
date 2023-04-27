@@ -41,7 +41,7 @@ namespace Watson.Anchors
         {
             yield return new WaitForSeconds(1f);
             SetupMarker();
-
+            Debug.Log("Debug: Marker Setup");
         }
 
         private void Update()
@@ -76,12 +76,13 @@ namespace Watson.Anchors
                     break;
                 }
             }
+
             if (anchorSave == null)
             {
-                Debug.LogError($"No anchor save found for {anchor.Uuid}");
+                Debug.LogError($"Debug No anchor save found for {anchor.Uuid}");
                 return;
             }
-            Debug.Log($"Found anchor save for {anchor.Uuid}");
+            Debug.Log($"Debug: Setup Marker End {anchor.Uuid}");
 
             if (anchorSave is DrawingData) { SetupAsDrawing((DrawingData)anchorSave); }
             else if (anchorSave is NoteData) { SetupAsNote((NoteData)anchorSave); }
@@ -184,22 +185,24 @@ namespace Watson.Anchors
         {
             if (!anchor)
             {
-                Debug.LogError("No anchor to save");
+                Debug.LogError("Debug: No anchor to save");
                 return;
             }
             else
             {
-                Debug.Log("Saving anchor");
+                Debug.Log("Debug: Saving anchor");
             }
+
+            Debug.Log("Debug: Try Saving anchor: " + anchor.Uuid.ToString());
 
             anchor.Save((anchor, success) =>
             {
                 if (!success)
                 {
-                    Debug.LogError("Failed to save anchor");
+                    Debug.LogError("Debug: Failed to save anchor");
                     return;
                 }
-                else Debug.Log("Anchor saved successfully");
+                else Debug.Log("Deebug: Anchor saved successfully");
 
                 // Write uuid of saved anchor to file
                 if (!PlayerPrefs.HasKey(NumUuidsPlayerPref))
@@ -210,7 +213,7 @@ namespace Watson.Anchors
                 int playerNumUuids = PlayerPrefs.GetInt(NumUuidsPlayerPref);
                 PlayerPrefs.SetString("uuid" + playerNumUuids, anchor.Uuid.ToString());
                 PlayerPrefs.SetInt(NumUuidsPlayerPref, ++playerNumUuids);
-                Debug.Log("Saving anchor: " + anchor.Uuid.ToString());
+                Debug.Log("Debug: Saving anchor: " + anchor.Uuid.ToString());
             });
         }
     }

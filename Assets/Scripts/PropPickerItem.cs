@@ -33,6 +33,7 @@ public class PropPickerItem : MonoBehaviour
         }
         GameObject marker = Instantiate(markerPrefab, transform.position, transform.rotation);
         marker.transform.parent = transform;
+        marker.transform.localPosition = Vector3.zero;
         marker.transform.localScale = new Vector3(1, 1, 1);
     }
 

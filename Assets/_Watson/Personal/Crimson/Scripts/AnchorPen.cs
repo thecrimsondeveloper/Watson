@@ -52,6 +52,7 @@ namespace Watson.Anchors
         [Button]
         public void ToggleDrawing()
         {
+            if (enabled == false) return;
             if (isDrawing)
             {
                 isDrawing = false;

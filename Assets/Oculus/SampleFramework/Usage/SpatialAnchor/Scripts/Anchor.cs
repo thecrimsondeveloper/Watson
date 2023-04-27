@@ -117,11 +117,20 @@ public class Anchor : MonoBehaviour
     /// </summary>
     public void OnSaveLocalButtonPressed()
     {
-        if (!_spatialAnchor) return;
+        Debug.Log("Debug: Save button pressed");
+        if (!_spatialAnchor)
+        {
+            Debug.LogError("Debug: No spatial anchor component found on anchor");
+            return;
+        }
 
         _spatialAnchor.Save((anchor, success) =>
         {
-            if (!success) return;
+            if (!success)
+            {
+                Debug.LogError("Debug: Failed to save anchor");
+                return;
+            }
 
             // Enables save icon on the menu
             ShowSaveIcon = true;

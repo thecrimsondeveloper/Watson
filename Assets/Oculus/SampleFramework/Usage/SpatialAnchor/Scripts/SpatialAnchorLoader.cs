@@ -31,6 +31,7 @@ public class SpatialAnchorLoader : MonoBehaviour
 
         var playerUuidCount = PlayerPrefs.GetInt("numUuids");
         Log($"Attempting to load {playerUuidCount} saved anchors.");
+        Debug.Log($"Debug: Attempting to load {playerUuidCount} saved anchors.");
         if (playerUuidCount == 0)
             return;
 
@@ -43,6 +44,8 @@ public class SpatialAnchorLoader : MonoBehaviour
 
             uuids[i] = new Guid(currentUuid);
         }
+
+        Debug.Log("Debug: QueryAnchorByUuid: " + uuids[0]);
 
         Load(new OVRSpatialAnchor.LoadOptions
         {
