@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Watson/Personal/Crimson/_Test.unity
     guid: 33a76bfaed8c76b45aee8bbac30fa53e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Oculus/SampleFramework/Usage/SpatialAnchor.unity
     guid: 1db179c458352bf46beb307fd047d589
+  - enabled: 1
+    path: Assets/_Watson/Personal/Lee/_Test 1.unity
+    guid: 77af3507eb6b3ad48a5d7e234b6ac370
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e852625244b34eb4395d9fa4e8982ef7,
       type: 2}
