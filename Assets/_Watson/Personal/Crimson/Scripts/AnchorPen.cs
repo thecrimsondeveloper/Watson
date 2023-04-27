@@ -15,9 +15,7 @@ namespace Watson.Anchors
         [SerializeField, Range(0.01f, 0.1f)] float minVertexDistance = 0.1f;
         [SerializeField, Range(0, 1)] float lineSmoothing = 0.1f;
         [SerializeField] Vector3 targetDrawPoint = Vector3.zero;
-        [SerializeField] GameObject grabPoint;
-        [SerializeField] GameObject markerPrefab;
-        public GameObject GrabPoint => grabPoint;
+        [SerializeField] GameObject defaultMarkerPrefab;
         bool isDrawing = false;
 
         private void OnDrawGizmos()
@@ -68,7 +66,7 @@ namespace Watson.Anchors
         public void SaveAndReset()
         {
             isDrawing = false;
-            GameObject markerObj = Instantiate(markerPrefab, transform.position, Quaternion.identity);
+            GameObject markerObj = Instantiate(defaultMarkerPrefab, transform.position, Quaternion.identity);
 
 
             List<Vector3> positionsInLocalSpace = new List<Vector3>();
