@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Watson.Anchors {
+namespace Watson.Anchors
+{
     public class SetIndividualVoiceText : MonoBehaviour
     {
 
@@ -20,10 +21,22 @@ namespace Watson.Anchors {
 
         IEnumerator GetTranslatedTextAfterDelay(float time)
         {
+            Debug.Log("Debug: Waiting for " + time + " seconds");
             yield return new WaitForSeconds(time);
-            string voiceString = GameObject.FindAnyObjectByType<LastVoiceTranslation>().lastVoiceTranslation; GameObject markerObj = Instantiate(defaultMarker, transform.position, Quaternion.identity);
-            Marker marker = markerObj.GetComponent<Marker>();
 
+            Debug.Log("Debug: Getting last voice translation");
+
+            LastVoiceTranslation voiceStringTranslation = GameObject.FindAnyObjectByType<LastVoiceTranslation>();
+            string voiceString = "";
+
+            if (voiceStringTranslation) voiceString = voiceStringTranslation.lastVoiceTranslation;
+            else Debug.LogError("Debug Error: No LastVoiceTranslation found in scene");
+
+            Debug.Log("Debug: -------- Last voice translation: " + voiceString);
+
+            GameObject markerObj = Instantiate(defaultMarker, transform.position, Quaternion.identity);
+            Marker marker = markerObj.GetComponent<Marker>();
+            Debug.Log("Debug: Marker found: " + marker);
             if (marker)
             {
                 marker.SetupNewNote(voiceString);
