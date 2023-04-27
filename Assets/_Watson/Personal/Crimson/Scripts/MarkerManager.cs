@@ -15,6 +15,7 @@ namespace Watson.Anchors
     public class MarkerManager : MonoBehaviour
     {
         public MarkerData data;
+        public SpatialAnchorLoader loader;
         [SerializeField] List<Marker> markers = new List<Marker>();
         List<Marker> timeStamps => markers.Where(m => m.Type == MarkerType.TimeStamp).ToList();
         List<Marker> notes => markers.Where(m => m.Type == MarkerType.Note).ToList();
@@ -23,11 +24,23 @@ namespace Watson.Anchors
         public void AddMarker(Marker newMarker) => markers.Add(newMarker);
         public void RemoveMarker(Marker oldMarker) => markers.Remove(oldMarker);
 
-        [Button]
+        [Button, HideInEditorMode]
         public void SaveAll()
         {
-            // markers.ForEach(m => m.Save());
+            markers.ForEach(m => m.SaveAnchor());
             markers.ForEach(m => data.SaveMarkerData(m));
+        }
+
+        [Button, HideInEditorMode]
+        public void LoadAll()
+        {
+            loader.LoadAnchorsByUuid();
+        }
+
+        [Button, HideInEditorMode]
+        public void ClearAllAnchors()
+        {
+            markers.ForEach(m => m.DeleteAnchor());
         }
     }
 }

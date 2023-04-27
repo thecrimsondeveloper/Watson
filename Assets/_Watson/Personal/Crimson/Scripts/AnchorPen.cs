@@ -16,6 +16,7 @@ namespace Watson.Anchors
         [SerializeField, Range(0, 1)] float lineSmoothing = 0.1f;
         [SerializeField] Vector3 targetDrawPoint = Vector3.zero;
         [SerializeField] GameObject grabPoint;
+        [SerializeField] GameObject markerPrefab;
         public GameObject GrabPoint => grabPoint;
         bool isDrawing = false;
 
@@ -67,25 +68,24 @@ namespace Watson.Anchors
         public void SaveAndReset()
         {
             isDrawing = false;
-            GameObject penObj = Instantiate(gameObject, drawing.transform.parent);
-            penObj.name = "Drawing Marker";
+            GameObject markerObj = Instantiate(markerPrefab, transform.position, Quaternion.identity);
 
-            AnchorPen pen = penObj.GetComponent<AnchorPen>();
 
-            penObj.AddComponent<Marker>().SetType(MarkerType.Drawing);
-
-            pen.GrabPoint.transform.position = drawing.GetPosition(0);
-
-            //convert all pen.Drawing positions to local space
-            for (int i = 0; i < pen.Drawing.positionCount; i++)
+            List<Vector3> positionsInLocalSpace = new List<Vector3>();
+            for (int i = 0; i < drawing.positionCount; i++)
             {
-                pen.Drawing.SetPosition(i, pen.Drawing.transform.InverseTransformPoint(pen.Drawing.GetPosition(i)));
+                Vector3 localPos = transform.InverseTransformPoint(drawing.GetPosition(i));
+                Debug.Log("Local pos: " + localPos);
+                positionsInLocalSpace.Add(localPos);
+                Debug.Log("Local pos: " + positionsInLocalSpace[i]);
             }
 
-            //set pen to local space
-            pen.Drawing.useWorldSpace = false;
+            Marker marker = markerObj.GetComponent<Marker>();
+            if (marker)
+            {
+                marker.SetupNewDrawing(positionsInLocalSpace.ToArray());
+            }
 
-            if (pen) Destroy(pen);
             drawing.positionCount = 0;
         }
     }

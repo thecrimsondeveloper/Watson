@@ -134,6 +134,7 @@ public class OVRSpatialAnchor : MonoBehaviour
         }
         catch
         {
+            Debug.LogError($"Failed to initialize {nameof(OVRSpatialAnchor)} from existing space {space} and uuid {uuid}.");
             Destroy(this);
             throw;
         }
@@ -631,6 +632,7 @@ public class OVRSpatialAnchor : MonoBehaviour
         else
         {
             Development.LogError($"{nameof(OVRPlugin)}.{nameof(OVRPlugin.CreateSpatialAnchor)} failed. Destroying {nameof(OVRSpatialAnchor)} component.");
+            Debug.Log("Failed to create spatial anchor. Destroying OVRSpatialAnchor component.");
             Destroy(this);
         }
     }
@@ -820,6 +822,7 @@ public class OVRSpatialAnchor : MonoBehaviour
         }
         else if (!success && anchor)
         {
+            Debug.LogError($"Failed to create spatial anchor. Destroying {nameof(OVRSpatialAnchor)} component.");
             // The OVRSpatialAnchor component exists but creation failed.
             Destroy(anchor);
         }
